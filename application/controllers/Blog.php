@@ -95,7 +95,8 @@ class Blog extends CI_Controller {
     }
 
     public function updateBlog() {
-        if ($this->input->post()) {
+		$id = $this->input->post('blog_id'); 
+        if ($id) {
             $this->form_validation->set_rules('post_name', 'Post Name', 'required');
             $this->form_validation->set_rules('short_description', 'Short Description', 'required');
             $this->form_validation->set_rules('description', 'Post Body', 'required');
@@ -133,31 +134,67 @@ class Blog extends CI_Controller {
                         'slug' => $this->input->post('slug')
 
 					);
-					$this->db->insert('blogs', $Blogdata);
-					$blog_id = $this->db->insert_id();
+                    $this->db->where('id', $id); // Assuming 'id' is the primary key column
+                    $this->db->update('blogs', $Blogdata);
 
-					if($blog_id){
-						$meta_description = $this->input->post('meta_description');
-						$meta_title = $this->input->post('meta_title');
-						$robots = $this->input->post('robots');
-						$meta_keywords = $this->input->post('meta_keywords');
+                    $meta_description = $this->input->post('meta_description');
+                    $meta_title = $this->input->post('meta_title');
+                    $robots = $this->input->post('robots');
+                    $meta_keywords = $this->input->post('meta_keywords');
 
-						$metaData = array(
-							'meta_description' => $this->input->post('meta_description'),
-							'meta_title' => $this->input->post('meta_title'),
-							'blog_id' => $blog_id,
-							'robots' => $this->input->post('robots'),
-							'meta_keywords' => $this->input->post('meta_keywords'),
+                    $metaData = array(
+                        'meta_description' => $this->input->post('meta_description'),
+                        'meta_title' => $this->input->post('meta_title'),
+                        'robots' => $this->input->post('robots'),
+                        'meta_keywords' => $this->input->post('meta_keywords'),
 
-						);
-						$this->db->insert('metadata', $metaData);
-
+                    );
+                    $this->db->where('blog_id', $id); // Assuming 'id' is the primary key column
+                    $this->db->update('metadata', $metaData);
+            
                         redirect('allBlogs');
-					}
+                   
+                    print_r($metaData);
+                    print_r($Blogdata);
+                    // redirect('allBlogs');
+					
 
                 } else {
-                    $upload_error = $this->upload->display_errors();
-                    echo "Image Upload Error: $upload_error";
+                    $Blogdata = array(
+						'title' => $this->input->post('post_name'),
+						'type' => $this->input->post('poll'),
+						'description' => $this->input->post('short_description'),
+						'blog' => $this->input->post('description'),
+						'alt_keyword' => $this->input->post('alt_keyword'),
+						'tags' => $this->input->post('tags'),
+						'category' => $this->input->post('category'),
+						'featured' => $this->input->post('featured'),
+                        'slug' => $this->input->post('slug')
+
+					);
+                    $this->db->where('id', $id); // Assuming 'id' is the primary key column
+                    $this->db->update('blogs', $Blogdata);
+
+                    $meta_description = $this->input->post('meta_description');
+                    $meta_title = $this->input->post('meta_title');
+                    $robots = $this->input->post('robots');
+                    $meta_keywords = $this->input->post('meta_keywords');
+
+                    $metaData = array(
+                        'meta_description' => $this->input->post('meta_description'),
+                        'meta_title' => $this->input->post('meta_title'),
+                        'robots' => $this->input->post('robots'),
+                        'meta_keywords' => $this->input->post('meta_keywords'),
+
+                    );
+                    $this->db->where('blog_id', $id); // Assuming 'id' is the primary key column
+                    $this->db->update('metadata', $metaData);
+                        redirect('allBlogs');
+                  
+                    print_r($metaData);
+                    print_r($Blogdata);
+
+                    // redirect('allBlogs');
                 }
             } else {
                 echo validation_errors();
