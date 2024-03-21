@@ -41,7 +41,6 @@ Main contain START -->
 			<div class="col-12">
 				<!-- Counter START -->
 				<div class="row g-4">
-					
 					<!-- Counter item -->
 					<div class="col-sm-6 col-lg-3">
 						<div class="card card-body border p-3">
@@ -69,7 +68,7 @@ Main contain START -->
 								</div>
 								<!-- Content -->
 								<div class="ms-3">
-									<h3>180</h3>
+									<h3><?= $totalBlogsCount ?></h3>
 									<h6 class="mb-0">Posts</h6>
 								</div>
 							</div>
@@ -142,45 +141,30 @@ Main contain START -->
 					<!-- Card body START -->
 					<div class="card-body p-3">
 
-						<div class="row">
-							<!-- Blog item -->
-							<div class="col-12">
-								<div class="d-flex align-items-center position-relative">
-									<img class="w-60 rounded" src="assets/images/blog/1by1/01.jpg" alt="product">
-									<div class="ms-3">
-										<a href="#" class="h6 stretched-link">Dirty little secrets about the business industry</a>
-										<p class="small mb-0">Jun 17, 2022</p>
+					<div class="row">
+						<?php
+							$totalBlog = count($latestBlogs);
+							$counter = 0;
+							foreach ($latestBlogs as $blog) :
+								$counter++;
+							?>
+								<!-- Blog item -->
+								<div class="col-12">
+									<div class="d-flex align-items-center position-relative">
+										<img class="w-60 rounded" src="<?= $blog['image']; ?>" alt="blog-image">
+										<div class="ms-3">
+											<a href="#" class="h6 stretched-link"><?= $blog['title']; ?></a>
+											<p class="small mb-0"><?= date('d-m-Y', strtotime($blog['created_at'])) ?></p>
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<!-- Divider -->
-							<hr class="my-3">
-
-							<!-- Blog item -->
-							<div class="col-12">
-								<div class="d-flex align-items-center position-relative">
-									<img class="w-60 rounded" src="assets/images/blog/1by1/02.jpg" alt="product">
-									<div class="ms-3">
-										<a href="#" class="h6 stretched-link">12 worst types of business accounts you follow on Twitter</a>
-										<p class="small mb-0">Nov 11, 2022</p>
-									</div>
-								</div>
-							</div>
-
-							<!-- Divider -->
-							<hr class="my-3">
-
-							<!-- Blog item -->
-							<div class="col-12">
-								<div class="d-flex align-items-center position-relative">
-									<img class="w-60 rounded" src="assets/images/blog/1by1/03.jpg" alt="product">
-									<div class="ms-3">
-										<a href="#" class="h6 stretched-link">Bad habits that people in the industry need to quit</a>
-										<p class="small mb-0">Sep 01, 2022</p>
-									</div>
-								</div>
-							</div>
+								<!-- Check if this is not the last blog item -->
+								<?php if ($counter < $totalBlog) : ?>
+									<!-- Divider -->
+									<hr class="my-3">
+								<?php endif; ?>
+						<?php endforeach; ?>
 						</div>
 					</div>
 					<!-- Card body END -->
@@ -482,179 +466,30 @@ Main contain START -->
 
 								<!-- Table body START -->
 								<tbody class="border-top-0">
-									<!-- Table item -->
+								<?php foreach ($totalBlogs as $blogs) { ?>
 									<tr>
-										<!-- Table data -->
 										<td>
-											<h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">12 worst types of business accounts you follow on Twitter</a></h6>
+											<h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#"><?= $blogs['title'] ?></a></h6>
 										</td>
-										<!-- Table data -->
 										<td>
-											<h6 class="mb-0"><a href="#">Lori Stevens</a></h6>
+											<h6 class="mb-0"><a href="#">Admin</a></h6>
 										</td>
-										<!-- Table data -->
-										<td>Jan 22, 2022</td>
-										<!-- Table data -->
-										<td>
-											<a href="#" class="badge text-bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
-										</td>
-										<!-- Table data -->
-										<td>
-											<span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-										</td>
-										<!-- Table data -->
-										<td>
-                      <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                        <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                      </div>
-										</td>
-									</tr>
+										<td><?= date('d-m-Y', strtotime($blogs['created_at'])) ?></td>
 
-									<!-- Table item -->
-									<tr>
-										<!-- Table data -->
 										<td>
-											<h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Dirty little secrets about the business industry</a></h6>
+											<a href="#" class="badge text-bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i><?= $blogs['category'] ?></a>
 										</td>
-										<!-- Table data -->
 										<td>
-											<h6 class="mb-0"><a href="#">Dennis Barrett</a></h6>
+										<span class="badge <?= $blogs['published'] == 0 ? "bg-warning text-warning" : "bg-success text-success" ?> bg-opacity-10  mb-2"><?= $blogs['published'] == 0 ? "Draft" : "Live" ?></span>
 										</td>
-										<!-- Table data -->
-										<td>Jan 19, 2022</td>
-										<!-- Table data -->
 										<td>
-											<a href="#" class="badge text-bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Marketing</a>
-										</td>
-										<!-- Table data -->
-										<td>
-											<span class="badge bg-warning bg-opacity-15 text-warning mb-2">Draft</span>
-										</td>
-										<!-- Table data -->
-										<td>
-                      <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                        <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                      </div>
+											<div class="d-flex gap-2">
+											<a href="<?= base_url('deleteBlog?id=' . $blogs['id']) ?>" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
+											<a href="<?= base_url('editBlog?id=' . $blogs['id']) ?>" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
+											</div>
 										</td>
 									</tr>
-
-									<!-- Table item -->
-									<tr>
-										<!-- Table data -->
-										<td>
-											<h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">7 common mistakes everyone makes while traveling</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>
-											<h6 class="mb-0"><a href="#">Billy Vasquez</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>Nov 11, 2022</td>
-										<!-- Table data -->
-										<td>
-											<a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Photography</a>
-										</td>
-										<!-- Table data -->
-										<td>
-											<span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-										</td>
-										<!-- Table data -->
-										<td>
-                      <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                        <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                      </div>
-										</td>
-									</tr>
-
-									<!-- Table item -->
-									<tr>
-										<!-- Table data -->
-										<td>
-											<h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">5 investment doubts you should clarify</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>
-											<h6 class="mb-0"><a href="#">Lori Stevens</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>Jan 22, 2022</td>
-										<!-- Table data -->
-										<td>
-											<a href="#" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Gadgets</a>
-										</td>
-										<!-- Table data -->
-										<td>
-											<span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-										</td>
-										<!-- Table data -->
-										<td>
-                      <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                        <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                      </div>
-										</td>
-									</tr>
-
-									<!-- Table item -->
-									<tr>
-										<!-- Table data -->
-										<td>
-											<h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Bad habits that people in the industry need to quit</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>
-											<h6 class="mb-0"><a href="#">Larry Lawson</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>Dec 06, 2022</td>
-										<!-- Table data -->
-										<td>
-											<a href="#" class="badge bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Sports</a>
-										</td>
-										<!-- Table data -->
-										<td>
-											<span class="badge bg-danger bg-opacity-10 text-danger mb-2">Removed</span>
-										</td>
-										<!-- Table data -->
-										<td>
-                      <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                        <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                      </div>
-										</td>
-									</tr>
-
-									<!-- Table item -->
-									<tr>
-										<!-- Table data -->
-										<td>
-											<h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Around the web: 20 fabulous infographics about business</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>
-											<h6 class="mb-0"><a href="#">Bryan Knight</a></h6>
-										</td>
-										<!-- Table data -->
-										<td>Feb 14, 2022</td>
-										<!-- Table data -->
-										<td>
-											<a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Travel</a>
-										</td>
-										<!-- Table data -->
-										<td>
-											<span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-										</td>
-										<!-- Table data -->
-										<td>
-                      <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                        <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                      </div>
-										</td>
-									</tr>
+									<?php } ?>
 
 								</tbody>
 								<!-- Table body END -->

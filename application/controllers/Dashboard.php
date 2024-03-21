@@ -21,10 +21,13 @@ class Dashboard extends CI_Controller {
 		// Check if session data exists
 		if ($userData) {
 			$data['userData'] = $userData;
+			$data['totalBlogsCount'] = $this->db->count_all('blogs');
+			$data['latestBlogs'] = $this->db->select('*')->from('blogs')->order_by('created_at', 'desc')->limit(3)->get()->result_array();		
+			$data['totalBlogs'] = $this->db->get('blogs')->result_array();
+
 			$this->load->view('Dashboard/home', $data);
 		} else {
-			// Redirect to the login page
-			redirect('sign_in'); // Assuming 'login' is the route to your login page
+			redirect('sign_in');
 		}
 	}
 

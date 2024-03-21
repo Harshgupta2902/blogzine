@@ -20,7 +20,7 @@
 				<ul class="navbar-nav navbar-nav-scroll mx-auto">
 
 					<!-- Nav item 1 Demos -->
-					<li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-house-door me-1"></i>Dashboard</a></li>
+					<li class="nav-item"><a class="nav-link" href="<?= base_url('dashboard') ?>"><i class="bi bi-house-door me-1"></i>Dashboard</a></li>
 
 					<!-- Nav item 2 Post -->
 					<li class="nav-item dropdown">
@@ -28,7 +28,7 @@
 						<ul class="dropdown-menu" aria-labelledby="postMenu">
 							<!-- dropdown submenu -->
 							<li> <a class="dropdown-item" href="<?= base_url('allBlogs') ?>">Post List</a> </li>
-							<li> <a class="dropdown-item" href="dashboard-post-categories.html">Post Categories</a> </li>
+							<li> <a class="dropdown-item" href="<?= base_url('blogCategories') ?>">Post Categories</a> </li>
 							<li> <a class="dropdown-item" href="<?= base_url('create') ?>">Create a Post</a> </li>
 						</ul>
 					</li>

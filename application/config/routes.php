@@ -6,11 +6,13 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-$route['sign_in'] = 'Auth/login';
+$route['sign_in'] = 'Auth/index';
 $route['sign_up'] = 'Auth/register';
 
 
 $route['dashboard'] = 'Dashboard/index';
+
+
 
 
 $route['create'] = 'Blog/create_blog';
@@ -20,8 +22,10 @@ $route['allBlogs'] = 'Blog/allBlogs';
 $route['deleteBlog'] = 'Blog/deleteBlog';   
 
 $route['editBlog'] = 'Blog/editBlog';   
-$route['update'] = 'Blog/updateBlog';   
+$route['update'] = 'Blog/updateBlog';
 
+$route['blogCategories'] = 'Blog/categories';   
+$route['addCategory'] = 'Blog/addCategory';   
 
 
 

@@ -20,7 +20,6 @@ class Blog extends CI_Controller {
 		$this->load->view('Blog/create_blog', $data);
 	}
 
-
 	public function createPost() {
         if ($this->input->post()) {
             $this->form_validation->set_rules('post_name', 'Post Name', 'required');
@@ -250,6 +249,25 @@ class Blog extends CI_Controller {
                 echo "Blog not found"; // You can modify this part as per your application's logic
             }
         }
+    }
+
+    public function categories(){
+        $data['userData'] = $this->session->userdata('user_data');
+		$data['totalCategory'] =  $this->db->count_all('category');
+        $data['category'] = $this->db->get('category')->result_array();
+
+		$this->load->view('Blog/blog_categories', $data);
+    }
+
+    public function addCategory(){
+        $name = $this->input->post('categoryName');
+        if($name){
+            $data = array('name'=>$name);
+            $this->db->insert('category', $data);
+            redirect('blogCategories');
+        }
+        redirect('blogCategories');
+
     }
 
 
